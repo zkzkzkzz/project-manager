@@ -5,9 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 async def read_root():
-    message = 'hello world'
-    result = message + undefined_variable
-    return {'message': result}
+    return {"message": "fast api working"}
 
 
 @app.get("/ping")

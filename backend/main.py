@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 
-app=FastAPI()
+app = FastAPI()
 
-@app.get('/')
+
+@app.get("/")
 def read_root():
-    return {'message':"fast api working"}
+    return {"message": "fast api working"}
 
-@app.get('/ping')
+
+@app.get("/ping")
 def get_ping():
-    return {'message':'pong'}
+    return {"message": "pong"}

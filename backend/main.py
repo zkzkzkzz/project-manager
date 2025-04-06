@@ -1,6 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
+from backend.routes import projects
 
 app = FastAPI()
+
+api_router = APIRouter()
+api_router.include_router(projects.router, prefix="/projects")
+
+app.include_router(api_router)
 
 
 @app.get("/")

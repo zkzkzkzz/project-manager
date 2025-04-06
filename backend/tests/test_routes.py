@@ -74,9 +74,7 @@ def test_update_project():
         "description": "Updated Description",
     }
 
-    response = client.put(
-        f"/projects/projects/{project_id}", json=updated_data
-    )
+    response = client.put(f"/projects/projects/{project_id}", json=updated_data)
 
     assert response.status_code == 200
     updated_project = response.json()
@@ -93,9 +91,7 @@ def test_update_nonexistent_project():
         "description": "New Description",
     }
 
-    response = client.put(
-        f"/projects/projects/{nonexistent_id}", json=updated_data
-    )
+    response = client.put(f"/projects/projects/{nonexistent_id}", json=updated_data)
 
     assert response.status_code == 404
     assert response.json()["detail"] == "Project with that id not found"

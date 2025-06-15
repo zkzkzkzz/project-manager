@@ -11,9 +11,18 @@ backend/**/*.pyo
 .git/
 .gitignore
 
+__pychache__/
+*.pyc
+*.pyo
+
 docker/
 Dockerfile
+docker-compose.yml
 .dockerignore
 
 *.log
 *.env
+coverage/
+
+README.md
+docs/

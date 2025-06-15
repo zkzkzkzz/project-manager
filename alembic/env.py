@@ -1,13 +1,22 @@
-from logging.config import fileConfig
+import os
+import sys
 
+APP_ROOT_IN_CONTAINER = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if APP_ROOT_IN_CONTAINER not in sys.path:
+    sys.path.insert(0, APP_ROOT_IN_CONTAINER)
+
+from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
 
-from core.settings import settings
 
-from db.apply_schema import Base
+from backend.core.settings import settings
+
+from backend.db.apply_schema import Base
+
+import backend.models.sql_models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -17,6 +26,14 @@ config = context.config
 # This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+if not settings.DATABASE_URL or not isinstance(str(settings.DATABASE_URL), str):
+
+    raise ValueError(
+        "Alembic env.py: DATABASE_URL not found in settings, is empty, or is not a string! "
+        "Ensure backend.core.settings loads it correctly from the environment variables "
+        "provided by Docker Compose (e.g., postgresql://postgres:postgres@db:5432/project_db)."
+    )
 
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
